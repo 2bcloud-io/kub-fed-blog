@@ -1,0 +1,22 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedService
+metadata:
+  name: echo-server
+  namespace: test
+spec:
+  placement:
+    clusters:
+      - name: eks-federated-1.us-east-1
+      - name: eks-federated-2.us-west-2
+    clusterSelector:
+      matchLabels: {}
+  template:
+    spec:
+      ports:
+      - name: http
+        port: 80
+        protocol: TCP
+        targetPort: 80
+      selector:
+        app: echo-server
+      type: LoadBalancer
