@@ -33,6 +33,7 @@ $ terraform apply
 
 Unsetting all environment variables in case you have them in your system.And you need to set you AWS Account ID's and EKS endpoints.
 
+```shell
 unset AWS_ACCOUNT_ID
 unset EKS_1_NAME
 unset EKS_1_ENDPOINT
@@ -48,6 +49,7 @@ export EKS_1_REGION=us-east-1
 export EKS_2_NAME=eks-federated-2
 export EKS_2_ENDPOINT=xxxxxxxxxxxxxxxxxxxx.yl4.us-west-2.eks.amazonaws.com
 export EKS_2_REGION=us-west-2
+```
 
 To configure kubetcl, you need both [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) and [AWS IAM Authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html).
 
