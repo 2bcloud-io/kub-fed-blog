@@ -20,11 +20,7 @@ module "eks_1" {
       min_capacity     = 3
       instance_types   = ["t3.medium"]
       subnets          = module.vpc_1.private_subnets
-      additional_tags = {
-        Automation  = "Terraform"
-        Owner       = "Arsen Hovhannisyan"
-        Environment = "testing"
-      }
+      additional_tags  = local.tags
     }
   }
 
@@ -56,11 +52,7 @@ module "eks_2" {
       min_capacity     = 3
       instance_types   = ["t3.medium"]
       subnets          = module.vpc_2.private_subnets
-      additional_tags = {
-        Automation  = "Terraform"
-        Owner       = "Arsen Hovhannisyan"
-        Environment = "testing"
-      }
+      additional_tags  = local.tags
     }
   }
 
