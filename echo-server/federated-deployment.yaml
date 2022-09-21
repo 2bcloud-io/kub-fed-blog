@@ -1,0 +1,45 @@
+apiVersion: types.kubefed.io/v1beta1
+kind: FederatedDeployment
+metadata:
+  name: echo-server
+  namespace: test
+spec:
+  overrides:
+    - clusterName: eks-federated-1.us-east-1
+      clusterOverrides:
+        - path: "/spec/replicas"
+          value: 2
+    - clusterName: eks-federated-2.us-west-2
+      clusterOverrides:
+        - path: "/spec/replicas"
+          value: 3
+  template:
+    metadata:
+      labels:
+        app: echo-server
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app: echo-server
+      template:
+        metadata:
+          labels:
+            app: echo-server
+        spec:
+          tolerations:
+            - effect: NoExecute
+              key: node.kubernetes.io/unreachable
+              operator: Exists
+              tolerationSeconds: 30
+            - effect: NoExecute
+              key: node.kubernetes.io/not-ready
+              operator: Exists
+              tolerationSeconds: 30
+          containers:
+            - image: ealen/echo-server:latest
+              name: echo-server
+  placement:
+    clusters:
+      - name: eks-federated-1.us-east-1
+      - name: eks-federated-2.us-west-2
